@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Pagina</title>
+  <style>
+    /* Stijl voor de body: achtergrondafbeelding, vult het hele scherm, en centreert de inhoud */
+    body {
+      background-image: url('https://i.imgur.com/BTG8XX6.png');
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    /* Stijl voor de container: witte achtergrond, padding, afgeronde hoeken, schaduw en vaste breedte */
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    /* Stijl voor het logo: centrerende afbeelding */
+    .logo {
+      background-image: url('https://i.imgur.com/BTG8XX6.png'); /* Logo URL */
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 100px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    /* Basisstijl voor inputvelden */
+    input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    /* Stijl voor de submit-knop */
+    input[type="button"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    /* Stijl voor de registratie-link */
+    p {
+      margin-top: 10px;
+    }
+
+    a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Logo container -->
+    <div class="logo"></div>
+
+    <!-- Paginatitel -->
+    <h1>Inloggen</h1>
+
+    <!-- Loginformulier -->
+    <form id="login-form">
+      <label for="email">E-mailadres:</label><br>
+      <input type="email" id="email" name="email" required><br>
+      <label for="pwd">Wachtwoord:</label><br>
+      <input type="password" id="pwd" name="password" required><br><br>
+      <input type="button" value="Inloggen" onclick="validateLogin()">
+    </form>
+
+    <!-- Link naar registratiepagina -->
+    <p>Nieuwe gebruiker? <a href="#" onclick="loadRegistration()">Klik hier</a></p>
+
+    <!-- Scripts voor het afhandelen van inloggen en het laden van de registratiepagina -->
+    <script>
+      // Functie om de inloggegevens te valideren
+      function validateLogin() {
+        google.script.run.withSuccessHandler(function(response) {
+          if (response) {
+            // Als inloggen succesvol is, laad het menu
+            google.script.run.withSuccessHandler(function(html) {
+              document.open();
+              document.write(html);
+              document.close();
+            }).getMenuPage();
+          } else {
+            // Toon een waarschuwing als de inloggegevens onjuist zijn
+            window.alert('Ongeldige inloggegevens');
+          }
+        }).checkLogin(document.getElementById('email').value, document.getElementById('pwd').value);
+      }
+
+      // Functie om de registratiepagina te laden
+      function loadRegistration() {
+        google.script.run.withSuccessHandler(function(html) {
+          document.open();
+          document.write(html);
+          document.close();
+        }).getRegistrationPage();
+      }
+    </script>
+  </div>
+</body>
+</html>

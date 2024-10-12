@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Menu Pagina</title>
+  <style>
+    /* Stijl voor de body: achtergrondafbeelding, vult het hele scherm, en centreert de inhoud */
+    body {
+      background-image: url('https://i.imgur.com/BTG8XX6.png');
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    /* Stijl voor de container: witte achtergrond, padding, afgeronde hoeken, schaduw en vaste breedte */
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    /* Stijl voor de titel */
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    /* Basisstijl voor knoppen */
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px 0;
+      width: 100%;
+    }
+
+    /* Stijl voor de uitlog-knop */
+    .logout {
+      background-color: #f44336;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Paginatitel -->
+    <h1>Welkom op het menu</h1>
+
+    <!-- Opties of acties die de gebruiker kan doen -->
+    <button onclick="showMessage('Optie 1 gekozen')">Optie 1</button>
+    <button onclick="showMessage('Optie 2 gekozen')">Optie 2</button>
+    <button onclick="showMessage('Optie 3 gekozen')">Optie 3</button>
+
+    <!-- Uitlogknop -->
+    <button class="logout" onclick="logout()">Uitloggen</button>
+    
+    <!-- Script voor de acties en uitloggen -->
+    <script>
+      // Functie om een bericht te tonen wanneer een optie wordt geselecteerd
+      function showMessage(message) {
+        window.alert(message);
+      }
+
+      // Functie om uit te loggen en terug te keren naar de inlogpagina
+      function logout() {
+        google.script.run.withSuccessHandler(function(html) {
+          document.open();
+          document.write(html);
+          document.close();
+        }).getLoginPage();
+      }
+    </script>
+  </div>
+</body>
+</html>
